@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="store">
+  <head>
+    <title>My First Angular Js 1 app</title>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Gem Store</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h1>Store Description</h1>
+      <div class="row customRow" ng-controller="StoreController as store">
+        <div class="span4" ng-hide="store.products.soldOut" ng-repeat="product in store.products | orderBy: 'price'">
+          <div class="innerWrap" equalize-height>
+            <h4 class="clearfix"><span>{{product.name}}</span><span>{{product.price | currency}}</span></h4>
+            <div class="imgWrap"><img ng-src="{{product.image}}" alt={{product.name}}/></div>
+            <section ng-controller="PanelController as panel">
+              <ul class="nav nav-pills">
+                <li ng-class="{active:panel.isSelected(1)}"><a href ng-click="panel.selectTab(1)">Description</a></li>
+                <li ng-class="{active:panel.isSelected(2)}"><a href ng-click="panel.selectTab(2)">Specipications</a></li>
+                <li ng-class="{active:panel.isSelected(3)}"><a href ng-click="panel.selectTab(3)">Reviews</a></li>
+              </ul>
+              <div class="panel panelBox" ng-show="panel.isSelected(1)">
+                <h5>Description</h5>
+                <p>{{product.description}}</p>
+              </div>
+              <div class="panel panelBox" ng-show="panel.isSelected(2)">
+                <h5>Specifications</h5>
+                <p>{{product.specification}}</p>
+              </div>
+              <div class="panel panelBox" ng-show="panel.isSelected(3)">
+                <h5>Reviews</h5>
+                <form name="reviewForm" class="reviewForm">
+                  <blockquote ng-repeat="review in product.reviews | orderBy: '-star'">
+                    <strong>Stars: {{review.star}}</strong>
+                    <p class="reviewMsg"><strong>Message:</strong> {{review.body}}</p>
+                    <cite><strong>by:</strong> {{review.author}}</cite>
+                  </blockquote>
+
+                  <legend>Submit your review</legend>
+                  <select ng-model="review.star">
+                    <option value="1">1 star</option>
+                    <option value="2">2 star</option>
+                    <option value="3">3 star</option>
+                    <option value="4">4 star</option>
+                    <option value="5">5 star</option>
+                  </select>
+                  <textarea ng-model="review.body" placeholder="your message"></textarea>
+                  <label>by:</label>
+                  <input ng-model="review.author" type="email" name="email" placeholder="Email" />
+                  <input type="submit" value="Submit Review" class="btn btn-info" />          
+                </form>
+              </div>
+            </section>
+            <button class="btn btn-success" ng-show="product.canPurchase">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="lib/angularjs1.5.min.js"></script>
+    <script type="text/javascript" src="apps/modules/app.js"></script>
+    <script type="text/javascript" src="apps/controllers/StoreController.js"></script>
+    <script type="text/javascript" src="apps/controllers/PanelController.js"></script>
+  </body>
+</html>
