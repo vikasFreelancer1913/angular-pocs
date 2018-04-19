@@ -31,7 +31,7 @@
       <div class="row customRow" ng-controller="StoreController as store">
         <div class="span4" ng-hide="store.products.soldOut" ng-repeat="product in store.products | orderBy: 'price'">
           <div class="innerWrap" equalize-height>
-            <h4 class="clearfix"><span>{{product.name}}</span><span>{{product.price | currency}}</span></h4>
+            <h4 class="clearfix" ng-include="'product-title.html'"></h4>
             <div class="imgWrap"><img ng-src="{{product.image}}" alt={{product.name}}/></div>
             <section ng-controller="PanelController as panel">
               <ul class="nav nav-pills">
