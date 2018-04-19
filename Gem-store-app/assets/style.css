@@ -63,3 +63,16 @@ h1 {
   padding: 10px 5px;
   height: 30px;
 }
+
+/*** Form Validation Style ****/
+
+.ng-invalid.ng-dirty {
+  border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+  border-color: #78FA89;
+}
+
+
+

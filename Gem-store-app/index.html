@@ -49,24 +49,24 @@
               </div>
               <div class="panel panelBox" ng-show="panel.isSelected(3)">
                 <h5>Reviews</h5>
-                <form name="reviewForm" class="reviewForm">
+                <form name="reviewForm" class="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
                   <blockquote ng-repeat="review in product.reviews | orderBy: '-star'">
-                    <strong>Stars: {{review.star}}</strong>
-                    <p class="reviewMsg"><strong>Message:</strong> {{review.body}}</p>
-                    <cite><strong>by:</strong> {{review.author}}</cite>
+                    <strong>Stars: {{reviewCtrl.review.star}}</strong>
+                    <p class="reviewMsg"><strong>Message:</strong> {{reviewCtrl.review.body}}</p>
+                    <cite><strong>by:</strong> {{reviewCtrl.review.author}}</cite>
                   </blockquote>
 
                   <legend>Submit your review</legend>
-                  <select ng-model="review.star">
+                  <select ng-model="review.star" required>
                     <option value="1">1 star</option>
                     <option value="2">2 star</option>
                     <option value="3">3 star</option>
                     <option value="4">4 star</option>
                     <option value="5">5 star</option>
                   </select>
-                  <textarea ng-model="review.body" placeholder="your message"></textarea>
+                  <textarea ng-model="review.body" placeholder="your message" required></textarea>
                   <label>by:</label>
-                  <input ng-model="review.author" type="email" name="email" placeholder="Email" />
+                  <input ng-model="review.author" type="email" name="email" placeholder="Email" required />
                   <input type="submit" value="Submit Review" class="btn btn-info" />          
                 </form>
               </div>
@@ -80,5 +80,6 @@
     <script type="text/javascript" src="apps/modules/app.js"></script>
     <script type="text/javascript" src="apps/controllers/StoreController.js"></script>
     <script type="text/javascript" src="apps/controllers/PanelController.js"></script>
+    <script type="text/javascript" src="apps/controllers/ReviewController.js"></script>
   </body>
 </html>
